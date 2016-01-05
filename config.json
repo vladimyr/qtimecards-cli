@@ -1,0 +1,13 @@
+{
+  "baseUrl": "http://attend.dbtouch.com",
+  "emailDomain": "extensionengine.com",
+  "recordReasons": [
+    "Ne radi čitač",
+    "Radim od kuće",
+    "Čitač uklonjen",
+    "Zaboravio/-la sam se odjaviti",
+    "Zaboravio/-la sam se prijaviti",
+    "Other"
+  ],
+  "defaultReason": 4
+}
