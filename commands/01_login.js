@@ -2,7 +2,8 @@
 
 var util = require('util');
 var Url = require('url');
-var _ = require('lodash');
+var compose = require('lodash/flowRight');
+var isEmpty = require('lodash/isEmpty');
 var chalk = require('chalk');
 var prompt = require('../lib/prompt.js');
 var credentials = require('../lib/credentials.js');
@@ -21,9 +22,10 @@ var usage = multiline(function() {/*
 */});
 
 
-_.mixin({ not: function(value) { return !value; }});
-var emptyFilter = _.compose(_.not, _.isEmpty);
-var notNumber = _.compose(_.not, _.isEmpty);
+function not(value) { return !value; }
+
+var emptyFilter = compose(not, isEmpty);
+var notNumber = compose(not, isEmpty);
 
 
 function setEmailDomain(emailDomain) {
@@ -64,7 +66,7 @@ function storeCredentials(data) {
     .then(credentials.store);
 }
 
-function reportSucces() {
+function reportSuccess() {
   console.log(chalk.bold.green('Success,'),
     'your credentials are remembered.',
     'To remove them execute', chalk.bold('logout'), 'command.');
@@ -77,7 +79,7 @@ function doLogin(data) {
     .login(data.username, data.password)
     .thenReturn(data)
     .then(storeCredentials.bind(client))
-    .then(reportSucces);
+    .then(reportSuccess);
 }
 
 function askForCredentials() {
